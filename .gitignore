@@ -1,0 +1,6 @@
+.venv
+dev.env
+.idea
+*.pyc
+
+provision/env/envvars

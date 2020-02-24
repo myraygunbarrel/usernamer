@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  app:
+    build: .
+    command: gunicorn -c python:config.server --reload cli:application.app
+    env_file:
+      - dev.env
+    volumes:
+      - ./:/app
+    ports:
+      - "${EXTERNAL_APP_PORT}:${APP_PORT}"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    env_file:
+      - dev.env
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_PORT}"
