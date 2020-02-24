@@ -23,12 +23,15 @@ class Usernamer:
         self.app = self.get_app()
 
     def get_app(self) -> web.Application:
-        sentry_sdk.init(dsn=self.config['sentry_dsn'],
-                        integrations=[AioHttpIntegration(), SqlalchemyIntegration()])
+        sentry_sdk.init(
+            dsn=self.config['sentry_dsn'],
+            integrations=[AioHttpIntegration(), SqlalchemyIntegration()]
+        )
         app = web.Application(middlewares=[
             error_middleware,
             validation_middleware,
-            self.db])
+            self.db
+        ])
         self.init_clients(app)
         self.init_postgres(app)
         self.init_routes(app)
